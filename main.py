@@ -1,6 +1,7 @@
 from flask import Flask,Response,request,jsonify
 import requests
 import re
+app=Flask(__name__)
 def headers(response):
 	response=jsonify({"content":response })
 	response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
@@ -15,7 +16,6 @@ def get_mp4link(episodeid):
 	data2=ssn.get(link).text
 	mp4s=re.findall("https://.*?\.mp4",data2)
 	return headers(mp4s)
-	app=Flask(__name__)
 @app.route('/<path:path>')
 def catch_all(path):
 	if request.args.get('episodeid') is None:
